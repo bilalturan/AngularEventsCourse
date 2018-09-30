@@ -8,22 +8,26 @@ import {Event, Location } from '../models/event';
 })
 export class EventsListComponent implements OnInit {
 
-  event: Event = new Event();
+  myEvent: Event = new Event();
   constructor() {
-    this.event.id = 1;
-    this.event.name = 'Angular Connect';
-    this.event.date = new Date(2036, 9, 9);
-    this.event.time = '10:00 am';
-    this.event.price = 599.99;
-    this.event.imageUrl = '/assets/images/angularconnect-shield.png',
-    this.event.location = new Location();
-    this.event.location.address = '1057 DT';
-    this.event.location.city = 'London';
-    this.event.location.country = 'Engalnd';
+    const e = this.myEvent;
+    e.id = 1;
+    e.name = 'Angular Connect';
+    e.date = new Date(2036, 9, 9);
+    e.time = '10:00 am';
+    e.price = 599.99;
+    e.imageUrl = '/assets/images/angularconnect-shield.png',
+    e.location = new Location();
+    e.location.address = '1057 DT';
+    e.location.city = 'London';
+    e.location.country = 'Engalnd';
 
    }
 
   ngOnInit() {
   }
 
+  clickEventHandler(data): void {
+    console.log(data);
+  }
 }

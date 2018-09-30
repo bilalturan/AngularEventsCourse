@@ -6,12 +6,14 @@ import { MatToolbarModule, MatFormFieldModule, MatCardModule, MatInputModule, Ma
 
 import { AppComponent } from './app.component';
 import { EventsListComponent } from './events/events-list/events-list.component';
+import { EventThumbnailComponent } from './events/event-thumbnail/event-thumbnail.component';
 
 @NgModule({
   // Component, pipes and directives to be used by this module
   declarations: [
     AppComponent,
-    EventsListComponent
+    EventsListComponent,
+    EventThumbnailComponent
   ],
   // Imported modules' exported declarations and providers
   // are available to this module.
