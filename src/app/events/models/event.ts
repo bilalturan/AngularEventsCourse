@@ -6,6 +6,7 @@ export class Event {
   price: number;
   imageUrl: string;
   location: Location;
+  onlineUrl: string;
 }
 
 export class Location {

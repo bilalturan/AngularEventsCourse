@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Event} from '../models/event';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-event-thumbnail',
@@ -10,15 +9,16 @@ import { EventEmitter } from 'protractor';
 export class EventThumbnailComponent implements OnInit {
 
   @Input() event: Event;
-  @Output() eventClick = new EventEmitter();
-
   constructor() { }
 
   ngOnInit() {
   }
 
-  handleClickMe(): void {
-    this.eventClick.emit('Foo Button clicked');
-  }
+  getStartTimeClass(): any {
 
+    return {
+      green: this.event && this.event.time === '10:00 am',
+      bold: this.event && this.event.time === '10:00 am'
+    };
+  }
 }
