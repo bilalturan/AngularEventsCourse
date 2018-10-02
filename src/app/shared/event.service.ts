@@ -2,6 +2,7 @@ import { Injectable, Type } from '@angular/core';
 import {Http} from '@angular/http';
 
 import {Event, Location} from '../events/models/event';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,23 @@ export class EventService {
 
   constructor(private http: Http) { }
 
-  getEvents(): Event[] {
+  getEvents(): Observable<Event[]> {
+
     const e1 = createEvent();
     const e2 = createEvent();
 
-    return [e1, e2];
+    const events = [e1, e2];
+
+    const subject = new Subject<Event[]>();
+    setTimeout( () => {
+      subject.next(events);
+      subject.complete();
+    }, 2000);
+
+    return subject;
   }
 
   GetEvent(id: number): Event {
-
-    if (id > 2) {
-      return null;
-    }
-
     return createEvent();
   }
 
