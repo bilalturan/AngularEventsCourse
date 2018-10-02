@@ -12,7 +12,7 @@ export class EventsListResolverService implements Resolve<any> {
 
   resolve() {
     console.log('inside EventsListResolverService');
-    return this.eventService.getEvents();//.pipe(map(data => data));
+    return this.eventService.getEvents().pipe(map(data => data));
   }
 
 }
