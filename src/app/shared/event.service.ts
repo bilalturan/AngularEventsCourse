@@ -18,6 +18,11 @@ export class EventService {
   }
 
   GetEvent(id: number): Event {
+
+    if (id > 2) {
+      return null;
+    }
+
     return createEvent();
   }
 

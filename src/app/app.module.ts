@@ -11,6 +11,8 @@ import { NavbarComponent } from './nav/navbar.component';
 import { HttpModule } from '@angular/http';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CreateEventComponent } from './events/create-event/create-event.component';
+import { E404Component } from './errors/e404.component';
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -19,25 +21,28 @@ import { AppRoutingModule } from './app-routing.module';
     EventsListComponent,
     EventThumbnailComponent,
     NavbarComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    CreateEventComponent,
+    E404Component
   ],
   // Imported modules' exported declarations and providers
   // are available to this module.
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpModule,
+    AppRoutingModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule,
-    HttpModule,
-    AppRoutingModule
+    MatCardModule
   ],
   // Services are added as providers
   providers: [],
   bootstrap: [AppComponent]
-
 })
 export class AppModule { }
+
+
