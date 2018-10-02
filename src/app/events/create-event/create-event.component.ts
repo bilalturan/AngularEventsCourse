@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class CreateEventComponent implements OnInit {
 
-  isDirt: boolean = true;
+  isDirt = true;
   constructor(private router: Router) { }
 
   ngOnInit() {
