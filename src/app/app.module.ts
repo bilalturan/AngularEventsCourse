@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { EventsListComponent } from './events/events-list/events-list.component';
 import { EventThumbnailComponent } from './events/event-thumbnail/event-thumbnail.component';
 import { NavbarComponent } from './nav/navbar.component';
+import { HttpModule } from '@angular/http';
+import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -15,7 +18,8 @@ import { NavbarComponent } from './nav/navbar.component';
     AppComponent,
     EventsListComponent,
     EventThumbnailComponent,
-    NavbarComponent
+    NavbarComponent,
+    EventDetailsComponent
   ],
   // Imported modules' exported declarations and providers
   // are available to this module.
@@ -27,7 +31,9 @@ import { NavbarComponent } from './nav/navbar.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    HttpModule,
+    AppRoutingModule
   ],
   // Services are added as providers
   providers: [],
