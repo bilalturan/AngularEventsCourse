@@ -65,7 +65,7 @@ function createEvent(): Event {
       duration: 2,
       name: 'fghg',
       level: 'Intermediate',
-      votes: ['1', '2', '3', '4'],
+      voters: ['1', '2', '3', '4'],
       presenter: 'ghhfgh'
     }
   ];

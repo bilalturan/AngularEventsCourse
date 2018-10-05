@@ -24,5 +24,5 @@ export class Session {
  duration: number;
  level: string;
  abstract: string;
- votes: string[];
+ voters: string[];
 }
