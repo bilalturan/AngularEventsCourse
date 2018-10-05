@@ -10,6 +10,7 @@ import {
   EventRouteActivatorGuard,
   EventRouteDeactivatorGuard
 } from './events/index';
+import { CreateSessionComponent } from './events/event-details/create-session.component';
 
 export const appRoutes: Routes = [
   { path: 'events/new', component: CreateEventComponent,
@@ -18,6 +19,7 @@ export const appRoutes: Routes = [
     resolve: {'events': EventsListResolverService } },
   { path: 'events/:id', component: EventDetailsComponent,
     canActivate: [EventRouteActivatorGuard] },
+  { path: 'events/session/new', component: CreateSessionComponent },
   { path: '404', component: E404Component },
   { path: '', redirectTo: '/events', pathMatch: 'full' },
   { path: 'user', loadChildren: './user/user.module#UserModule' }

@@ -17,6 +17,9 @@ import {
   CreateEventComponent,
   EventDetailsComponent
 } from './events/index';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateSessionComponent } from './events/event-details/create-session.component';
+import { SessionListComponent } from './events/event-details/session-list.component';
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -27,7 +30,9 @@ import {
     NavbarComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    E404Component
+    E404Component,
+    CreateSessionComponent,
+    SessionListComponent
   ],
   // Imported modules' exported declarations and providers
   // are available to this module.
@@ -36,6 +41,8 @@ import {
     BrowserAnimationsModule,
     HttpModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatFormFieldModule,

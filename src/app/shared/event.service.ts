@@ -1,7 +1,7 @@
 import { Injectable, Type } from '@angular/core';
 import {Http} from '@angular/http';
 
-import {Event, Location} from '../events/models/event';
+import {Event, Location, Session} from '../events/models/event';
 import { Subject, Observable } from 'rxjs';
 
 @Injectable({
@@ -9,18 +9,20 @@ import { Subject, Observable } from 'rxjs';
 })
 export class EventService {
 
-  constructor(private http: Http) { }
+  private events: Event[] = [];
 
-  getEvents(): Observable<Event[]> {
-
+  constructor(private http: Http) {
     const e1 = createEvent();
     const e2 = createEvent();
 
-    const events = [e1, e2];
+    this.events = [e1, e2];
+  }
+
+  getEvents(): Observable<Event[]> {
 
     const subject = new Subject<Event[]>();
     setTimeout( () => {
-      subject.next(events);
+      subject.next(this.events);
       subject.complete();
     }, 100);
 
@@ -28,9 +30,19 @@ export class EventService {
   }
 
   GetEvent(id: number): Event {
-    return createEvent();
+    return this.events[0];
   }
 
+  saveEvent(event: Event): any {
+    event.id = 999;
+    event.sessions = [];
+    this.events.push(event);
+  }
+
+  updateEvent(event: Event): any {
+    const index = this.events.findIndex(x => x.id === event.id);
+    this.events[index] = event;
+  }
 }
 
 function createEvent(): Event {
@@ -46,6 +58,17 @@ function createEvent(): Event {
   e.location.address = '1057 DT';
   e.location.city = 'London';
   e.location.country = 'Engalnd';
+  e.sessions = [
+    {
+      id: 1,
+      abstract: 'dfdf',
+      duration: 6576,
+      name: 'fghg',
+      level: '2',
+      voters: undefined,
+      presenter: 'ghhfgh'
+    }
+  ];
 
   return e;
 }

@@ -6,3 +6,7 @@
 .event-image {
   height: 100p;
 }
+
+a {
+  cursor: pointer;
+}
