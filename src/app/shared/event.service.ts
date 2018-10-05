@@ -62,10 +62,10 @@ function createEvent(): Event {
     {
       id: 1,
       abstract: 'dfdf',
-      duration: 6576,
+      duration: 2,
       name: 'fghg',
-      level: '2',
-      voters: undefined,
+      level: 'Intermediate',
+      votes: ['1', '2', '3', '4'],
       presenter: 'ghhfgh'
     }
   ];

@@ -20,6 +20,8 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session.component';
 import { SessionListComponent } from './events/event-details/session-list.component';
+import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
+import { DurationPipe } from './shared/duration.pipe';
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -32,7 +34,9 @@ import { SessionListComponent } from './events/event-details/session-list.compon
     CreateEventComponent,
     E404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   // Imported modules' exported declarations and providers
   // are available to this module.

@@ -16,6 +16,7 @@ export class Location {
   country: string;
 }
 
+
 export class Session {
  id: number;
  name: string;
@@ -23,5 +24,5 @@ export class Session {
  duration: number;
  level: string;
  abstract: string;
- voters: string[];
+ votes: string[];
 }

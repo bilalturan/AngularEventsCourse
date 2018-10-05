@@ -11,14 +11,16 @@ import { Event, Session } from '../models/event';
 export class EventDetailsComponent implements OnInit {
 
   event: Event;
-  eventId = 67;
   addMode = false;
+
+  filterBy: string = 'all';
+
   constructor(private eventService: EventService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.eventId = +this.route.snapshot.params['id'];
-    this.event = this.eventService.GetEvent(this.eventId);
+    const eventId = +this.route.snapshot.params['id'];
+    this.event = this.eventService.GetEvent(eventId);
   }
 
   addSession(): void {
