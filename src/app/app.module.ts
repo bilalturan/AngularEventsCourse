@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 
 import { MatToolbarModule, MatFormFieldModule, MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
 
+import {TOASTR_TOKEN, IToastr} from './common/toastr.service';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +24,8 @@ import { CreateSessionComponent } from './events/event-details/create-session.co
 import { SessionListComponent } from './events/event-details/session-list.component';
 import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
 import { DurationPipe } from './shared/duration.pipe';
+
+declare let toastr: IToastr; // to satisfy typescript compiler
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -55,7 +59,12 @@ import { DurationPipe } from './shared/duration.pipe';
     MatCardModule
   ],
   // Services are added as providers
-  providers: [],
+  providers: [
+    {
+      provide: TOASTR_TOKEN, // using injection token for global objects
+      useValue: toastr
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

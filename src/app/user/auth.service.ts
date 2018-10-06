@@ -6,8 +6,8 @@ import { User } from './user.model';
 })
 export class AuthService {
 
-
   currentUser: User;
+
   constructor() { }
 
   loginUser(userName: string, password: string) {
