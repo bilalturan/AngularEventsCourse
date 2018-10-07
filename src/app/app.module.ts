@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { MatToolbarModule, MatFormFieldModule, MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
 
 import {TOASTR_TOKEN, IToastr} from './common/toastr.service';
+import {JQ_TOKEN} from './common/jquery.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
@@ -25,7 +26,8 @@ import { SessionListComponent } from './events/event-details/session-list.compon
 import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
 import { DurationPipe } from './shared/duration.pipe';
 
-declare let toastr: IToastr; // to satisfy typescript compiler
+const toastr: IToastr = window['toastr']; // to satisfy typescript compiler
+const jQuery = window['$'];
 
 @NgModule({
   // Component, pipes and directives to be used by this module
@@ -63,6 +65,10 @@ declare let toastr: IToastr; // to satisfy typescript compiler
     {
       provide: TOASTR_TOKEN, // using injection token for global objects
       useValue: toastr
+    },
+    {
+      provide: JQ_TOKEN, // using injection token for global objects
+      useValue: jQuery
     }
   ],
   bootstrap: [AppComponent]
