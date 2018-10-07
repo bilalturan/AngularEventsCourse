@@ -9,6 +9,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SimpleModalComponent implements OnInit {
 
   @Input() title: string;
+  @Input() eventId: string;
+
+  @Input() elementId: string;
 
   constructor() { }
 
