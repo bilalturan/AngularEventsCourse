@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {Event, Location, Session} from '../events/models/event';
 import { Observable, of } from 'rxjs';
@@ -32,43 +32,27 @@ export class EventService {
   }
 
   saveEvent(event: Event): any {
-    event.id = 999;
-    event.sessions = [];
-    this.events.push(event);
+
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.http.post<Event>('api/events', event, options)
+    .pipe(catchError(this.handleError<Event>('saveEvent')));
   }
 
   updateEvent(event: Event): any {
-    const index = this.events.findIndex(x => x.id === event.id);
-    this.events[index] = event;
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.http.put<Event>('api/events', event, options)
+    .pipe(catchError(this.handleError<Event>('saveEvent')));
   }
 
-  searchSessions(searchTerm: string): any {
-    const term = searchTerm.toLocaleLowerCase();
-
-    console.log('term: ' + term);
-    let result: Session[] = [];
-
-    this.events.forEach(event => {
-      let matchingSessions = event.sessions.filter(session => {
-          return session.name.toLocaleLowerCase().indexOf(term) > -1;
-      });
-
-      matchingSessions = matchingSessions.map((session: any) => {
-        session.eventId = event.id;
-        return session;
-      });
-
-      result = result.concat(matchingSessions);
-    });
-
-    console.log('result: ' + result);
-
-    const emitter = new EventEmitter(true);
-    setTimeout(() => {
-      emitter.emit(result);
-    }, 100);
-
-    return emitter;
+  searchSessions(searchTerm: string): Observable<Session[]> {
+    return this.http.get<Session[]>('/api/sessions/search?search=' + searchTerm)
+    .pipe(catchError(this.handleError<Session[]>('searchSessions')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
