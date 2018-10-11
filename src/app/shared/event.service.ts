@@ -14,12 +14,7 @@ export class EventService {
 
   private events: Event[] = [];
 
-  constructor(private http: HttpClient) {
-    const e1 = createEvent();
-    const e2 = createEvent();
-
-    this.events = [e1, e2];
-  }
+  constructor(private http: HttpClient) {}
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>('/api/events')
@@ -61,32 +56,4 @@ export class EventService {
       return of(result as T);
     };
   }
-}
-
-function createEvent(): Event {
-  const e = new Event();
-  e.id = 1;
-  e.name = 'Angular Connect';
-  e.date = new Date(2036, 9, 9);
-  e.time = '10:00 am';
-  e.price = 599.99;
-  e.imageUrl = '/assets/images/angularconnect-shield.png';
-  e.onlineUrl = 'my-url';
-  e.location = new Location();
-  e.location.address = '1057 DT';
-  e.location.city = 'London';
-  e.location.country = 'Engalnd';
-  e.sessions = [
-    {
-      id: 1,
-      abstract: 'dfdf',
-      duration: 2,
-      name: 'fghg',
-      level: 'Intermediate',
-      voters: ['1', '2', '3', '4'],
-      presenter: 'ghhfgh'
-    }
-  ];
-
-  return e;
 }
