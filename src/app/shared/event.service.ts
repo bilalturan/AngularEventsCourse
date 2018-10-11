@@ -26,15 +26,9 @@ export class EventService {
       .pipe(catchError(this.handleError<Event[]>('getEvents', [])));
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.log(error);
-      return of(result as T);
-    };
-  }
-
-  GetEvent(id: number): Event {
-    return this.events[0];
+  getEvent(id: number): Observable<Event> {
+    return this.http.get<Event>('/api/events/' + id)
+      .pipe(catchError(this.handleError<Event>('getEvent')));
   }
 
   saveEvent(event: Event): any {
@@ -77,6 +71,12 @@ export class EventService {
     return emitter;
   }
 
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.log(error);
+      return of(result as T);
+    };
+  }
 }
 
 function createEvent(): Event {

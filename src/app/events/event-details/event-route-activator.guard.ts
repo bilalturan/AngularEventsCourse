@@ -1,28 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { EventService } from '../../shared/event.service';
+// import { Injectable } from '@angular/core';
+// import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+// import { Observable } from 'rxjs';
+// import { EventService } from '../../shared/event.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class EventRouteActivatorGuard implements CanActivate {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class EventRouteActivatorGuard implements CanActivate {
 
-  constructor(private eventService: EventService,
-    private router: Router) { }
+//   constructor(private eventService: EventService,
+//     private router: Router) { }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
-              : Observable<boolean> | Promise<boolean> | boolean {
-      const id: number = +next.params['id'];
+//   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+//               : Observable<boolean> | Promise<boolean> | boolean {
+//       const id: number = +next.params['id'];
 
-      console.log('In router activator - ID: ' + id);
+//       console.log('In router activator - ID: ' + id);
 
-      const itemExists = !!this.eventService.GetEvent(id);
+//       const itemExists = !!this.eventService.getEvent(id);
 
-      if (!itemExists) {
-        this.router.navigate(['/404']);
-      }
+//       if (!itemExists) {
+//         this.router.navigate(['/404']);
+//       }
 
-      return itemExists;
-  }
-}
+//       return itemExists;
+//   }
+// }

@@ -21,9 +21,9 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit() {
 
     // subsribe and react to route parameter changes
-    this.route.params.forEach((params: Params) => {
-      this.event = this.eventService.GetEvent(+params['id']);
-      this.addMode = false;
+    this.route.data.forEach(data => {
+        this.event = data['event'];
+        this.addMode = false;
     });
   }
 
