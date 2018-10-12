@@ -9,6 +9,7 @@ import { of, Observable } from 'rxjs';
 })
 export class AuthService {
 
+
   currentUser: User;
 
   constructor(private http: HttpClient) { }
@@ -46,5 +47,11 @@ export class AuthService {
     this.currentUser.lastName = lastName;
 
     return this.http.put<User>('/api/users/' + this.currentUser.id, this.currentUser);
+  }
+
+  logout(): Observable<any> {
+    this.currentUser = undefined;
+
+    return this.http.post('/api/logout', {});
   }
 }
