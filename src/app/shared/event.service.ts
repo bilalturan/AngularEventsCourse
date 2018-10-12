@@ -27,21 +27,13 @@ export class EventService {
   }
 
   saveEvent(event: Event): any {
-
-    const options = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    };
-
-    return this.http.post<Event>('api/events', event, options)
+    return this.http.post<Event>('api/events', event)
     .pipe(catchError(this.handleError<Event>('saveEvent')));
   }
 
   updateEvent(event: Event): any {
-    const options = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    };
-
-    return this.http.put<Event>('api/events', event, options)
+    // server does not support PUT. Given id post behaves like put
+    return this.http.post<Event>('api/events', event)
     .pipe(catchError(this.handleError<Event>('saveEvent')));
   }
 
