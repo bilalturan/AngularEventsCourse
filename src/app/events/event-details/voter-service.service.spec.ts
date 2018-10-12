@@ -45,4 +45,23 @@ describe('VoterService', () => {
 
   });
 
+
+  describe('addVoter', () => {
+
+    it('should call server with the right URL', () => {
+      // Arrange
+      const session = { id: 6, voters: ['John'] };
+      // Setup mock to return observable of false for delete method
+      httpMock.post.and.returnValue(of(false));
+
+      // Act
+      voterService.addVoter(3, <Session>session, 'Joe');
+
+       // Assert
+       expect(httpMock.post).toHaveBeenCalledWith('/api/events/3/sessions/6/voters/Joe',
+                            {}, jasmine.any(Object));
+    });
+
+  });
+
 });
