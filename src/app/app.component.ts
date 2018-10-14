@@ -7,11 +7,16 @@ import { AuthService } from './user/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  sidebarExpanded: boolean = true;
 
   constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.authService.checkAuthenticationStatus();
+  }
+
+  sidenMenuToggle(): void {
+    this.sidebarExpanded = !this.sidebarExpanded;
   }
 }

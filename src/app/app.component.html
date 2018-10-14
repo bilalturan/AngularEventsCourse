@@ -1,4 +1,30 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+
+<div id="wrapper" [ngClass]="{'sidebarExpanded': sidebarExpanded}">
+
+    <app-navbar></app-navbar>
+
+
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li><a href="#">Account</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div id="page-content-wrapper" class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+          <a class="btn btn-succes" (click)="sidenMenuToggle()">Toggle menu</a>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 
