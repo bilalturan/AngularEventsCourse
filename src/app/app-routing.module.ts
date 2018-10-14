@@ -48,7 +48,7 @@ export const appRoutes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes, {
-      preloadingStrategy: PreloadAllModules
+      preloadingStrategy: PreloadAllModules // preload instead of load by demand
     })
   ],
   exports: [
