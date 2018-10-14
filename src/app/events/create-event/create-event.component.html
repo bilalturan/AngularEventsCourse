@@ -28,15 +28,15 @@
         <label for="address">Event Location:</label>
         <em *ngIf="locationGroup?.invalid && locationGroup?.touched">
           You must en ter the full location oR an online URL</em>
-        <input (ngModel)="newEvent.address" name="address" id="address" type="text" class="form-control" placeholder="Address of event..." />
+        <input (ngModel)="newEvent.location.address" name="address" id="address" type="text" class="form-control" placeholder="Address of event..." />
       </div>
       <div class="row">
         <div class="col-md-6">
-          <input (ngModel)="newEvent.city" name="city" id="city" type="text"
+          <input (ngModel)="newEvent.location.city" name="city" id="city" type="text"
           class="form-control" placeholder="City..." />
         </div>
         <div class="col-md-6" >
-          <input (ngModel)="newEvent.country" name="country" id="country" type="text"
+          <input (ngModel)="newEvent.location.country" name="country" id="country" type="text"
           class="form-control" placeholder="Country..." />
         </div>
       </div>
