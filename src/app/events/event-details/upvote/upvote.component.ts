@@ -4,7 +4,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
   // tslint:disable-next-line:component-selector
   selector: 'upvote',
   templateUrl: './upvote.component.html',
-  styleUrls: ['./upvote.component.css']
+  styleUrls: ['./upvote.component.scss']
 })
 export class UpvoteComponent implements OnInit {
 

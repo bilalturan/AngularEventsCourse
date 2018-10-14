@@ -25,7 +25,7 @@
             "styles": [
               "node_modules/toastr/build/toastr.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -129,5 +129,10 @@
       }
     }
   },
-  "defaultProject": "material-flex"
+  "defaultProject": "material-flex",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

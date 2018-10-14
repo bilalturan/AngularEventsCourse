@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   // tslint:disable-next-line:component-selector
   selector: 'collapsible-well',
   templateUrl: './collapsible-well.component.html',
-  styleUrls: ['./collapsible-well.component.css']
+  styleUrls: ['./collapsible-well.component.scss']
 })
 export class CollapsibleWellComponent implements OnInit {
 

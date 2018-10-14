@@ -6,7 +6,7 @@ import { Event, Session } from '../models/event';
 @Component({
   // selector: This componen is going to be routed to directly.
   templateUrl: './event-details.component.html',
-  styleUrls: ['./event-details.component.css']
+  styleUrls: ['./event-details.component.scss']
 })
 export class EventDetailsComponent implements OnInit {
 

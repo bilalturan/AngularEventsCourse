@@ -5,7 +5,7 @@ import { JQ_TOKEN } from '../jquery.service';
   // tslint:disable-next-line:component-selector
   selector: 'simple-modal',
   templateUrl: './simple-modal.component.html',
-  styleUrls: ['./simple-modal.component.css']
+  styleUrls: ['./simple-modal.component.scss']
 })
 export class SimpleModalComponent implements OnInit {
 

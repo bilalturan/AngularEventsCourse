@@ -7,7 +7,7 @@ import { VoterService } from './voter-service.service';
   // tslint:disable-next-line:component-selector
   selector: 'session-list',
   templateUrl: './session-list.component.html',
-  styleUrls: ['./session-list.component.css']
+  styleUrls: ['./session-list.component.scss']
 })
 export class SessionListComponent implements OnInit, OnChanges {
 

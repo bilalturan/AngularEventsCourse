@@ -7,7 +7,7 @@ import { restictedWords } from '../../shared/restricted-words.validator';
   // tslint:disable-next-line:component-selector
   selector: 'create-session',
   templateUrl: './create-session.component.html',
-  styleUrls: ['./create-session.component.css']
+  styleUrls: ['./create-session.component.scss']
 })
 export class CreateSessionComponent implements OnInit {
 
