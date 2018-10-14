@@ -1,54 +1,59 @@
-<div class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" >ngEvents</a>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ngEvents</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          <a [routerLink]="['/events']"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact:true}">
-          All Events</a>
-        </li>
-        <li><a [routerLink]="['/events/new']"
-          routerLinkActive="active"
-          href="">
-          Create Event</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-            Events
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li >
-              <a href="">Angular Connect</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/events']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}">
+              All Events</a>
             </li>
-          </ul>
-        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/events/new']"
+            routerLinkActive="active"
+            href="">
+            Create Event</a></li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                  Events
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Angular Connect</a>
+                  </div>
+              </li>
+
       </ul>
-      <div class="navbar-header navbar-right">
-        <ul class="nav navbar-nav">
-          <li>
-            <a *ngIf="!authService.isAuthenticated()" [routerLink]="['user/login']">Login</a>
-            <a *ngIf="authService.isAuthenticated()" [routerLink]="['user/profile']">Welcome {{authService.currentUser.firstName}}</a>
-          </li>
-        </ul>
-      </div>
-      <form id="searchForm" (ngSubmit)="searchSessions(searchTerm)" class="navbar-form navbar-right"  >
-        <div class="form-group">
+
+      <form class="form-inline my-2 my-lg-0" id="searchForm" (ngSubmit)="searchSessions(searchTerm)"   >
+
           <input [(ngModel)]="searchTerm" name="searchTerm"
-          type="text" class="form-control" placeholder="Search Sessions" >
-        </div>
-        <button class="btn btn-default"
-                modal-trigger="searchResult">
-          Search
-        </button>
-      </form>
+            class="form-control mr-sm-2" type="search"  placeholder="Search Sessions" aria-label="Search">
+
+          <button class="btn btn-outline-primary my-2 my-sm-0" modal-trigger="searchResult">
+            Search
+          </button>
+        </form>
+
+        <div class="navbar-header navbar-right">
+            <ul class="nav navbar-nav">
+              <li>
+                <a class="nav-link" *ngIf="!authService.isAuthenticated()" [routerLink]="['user/login']">Login</a>
+                <a class="nav-link" *ngIf="authService.isAuthenticated()" [routerLink]="['user/profile']">Welcome {{authService.currentUser.firstName}}</a>
+              </li>
+            </ul>
+          </div>
+
     </div>
-  </div>
-</div>
+  </nav>
 
 <simple-modal closeOnBodyClick="false" elementId="searchResult" title="Matching Sessions">
   <div class="list-group">
