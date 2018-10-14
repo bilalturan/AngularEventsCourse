@@ -1,12 +1,14 @@
 import { SessionListComponent } from './session-list.component';
 import { Session } from '../models/event';
+import { AuthService } from 'src/app/user/auth.service';
+import { VoterService } from './voter-service.service';
 
 
 describe('SessionListComponent', () => {
 
   let component: SessionListComponent;
-  let authServiceMock;
-  let voterServiceMock;
+  const authServiceMock: AuthService = null;
+  const voterServiceMock: VoterService = null;
 
   beforeEach(() => {
     // authServiceMock = jasmine.createSpyObj('httpMock', ['delete', 'post']);
