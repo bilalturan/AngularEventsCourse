@@ -4,10 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatToolbarModule, MatFormFieldModule, MatCardModule, MatInputModule, MatButtonModule } from '@angular/material';
-
-import {TOASTR_TOKEN, IToastr} from './common/toastr.service';
-import {JQ_TOKEN} from './common/jquery.service';
+import { TOASTR_TOKEN, IToastr } from './common/toastr.service';
+import { JQ_TOKEN } from './common/jquery.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
@@ -61,12 +59,7 @@ const jQuery = window['$'];
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule
+    FlexLayoutModule
   ],
   // Services are added as providers
   providers: [
