@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+
 import { TOASTR_TOKEN, IToastr } from './common/toastr.service';
 import { JQ_TOKEN } from './common/jquery.service';
 
@@ -27,6 +29,7 @@ import { SimpleModalComponent } from './common/simple-modal/simple-modal.compone
 import { ModalTriggerDirective } from './common/modal-trigger.directive';
 import { UpvoteComponent } from './events/event-details/upvote/upvote.component';
 import { LocationValidatorDirective } from './events/location-validator.directive';
+import { reducer } from './state/app.reducer';
 
 const toastr: IToastr = window['toastr']; // to satisfy typescript compiler
 const jQuery = window['$'];
@@ -59,7 +62,8 @@ const jQuery = window['$'];
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StoreModule.forRoot({root: reducer} )
   ],
   // Services are added as providers
   providers: [

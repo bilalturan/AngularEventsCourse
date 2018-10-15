@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { StoreModule } from '@ngrx/store';
 
 
 const userRoutes = [
@@ -16,7 +17,8 @@ const userRoutes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(userRoutes) // In main module .forRoot was used...
+    RouterModule.forChild(userRoutes), // In main module .forRoot was used...
+    StoreModule.forFeature('user', {})
   ],
   declarations: [ProfileComponent, LoginComponent]
 })
