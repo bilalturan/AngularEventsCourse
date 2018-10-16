@@ -35,8 +35,9 @@ export class ProfileComponent implements OnInit {
       lastName: this.lastName
     });
 
-    this.store.pipe<fromUser.UserState>(select('user')).subscribe(user => {
-      this.username = user.username;
+    this.store.pipe(select(fromUser.getUsername))
+    .subscribe(username => {
+      this.username = username;
     });
   }
 
