@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { TOASTR_TOKEN, IToastr } from './common/toastr.service';
 import { JQ_TOKEN } from './common/jquery.service';
@@ -30,6 +31,7 @@ import { ModalTriggerDirective } from './common/modal-trigger.directive';
 import { UpvoteComponent } from './events/event-details/upvote/upvote.component';
 import { LocationValidatorDirective } from './events/location-validator.directive';
 import { reducer } from './state/app.reducer';
+import { environment } from 'src/environments/environment.prod';
 
 const toastr: IToastr = window['toastr']; // to satisfy typescript compiler
 const jQuery = window['$'];
@@ -63,7 +65,12 @@ const jQuery = window['$'];
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    StoreModule.forRoot({root: reducer} )
+    StoreModule.forRoot({root: reducer} ),
+    StoreDevtoolsModule.instrument({
+      name: 'APM Demo',
+      maxAge: 25,
+      logOnly: environment.production
+    })
   ],
   // Services are added as providers
   providers: [
