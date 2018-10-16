@@ -65,7 +65,7 @@ const jQuery = window['$'];
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    StoreModule.forRoot({root: reducer} ),
+    StoreModule.forRoot( {app: reducer} ),
     StoreDevtoolsModule.instrument({
       name: 'APM Demo',
       maxAge: 25,

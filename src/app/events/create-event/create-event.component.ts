@@ -22,7 +22,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     private store: Store<any>) { }
 
   ngOnInit() {
-    this.store.pipe(select('root')).subscribe(data => {
+    this.store.pipe(select('app')).subscribe(data => {
       if (data) {
         this.showOnlineUrl = data.showOnlineUrl;
       } else {

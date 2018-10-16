@@ -4,8 +4,6 @@ export function reducer(state, action) {
 
       case 'TOGGLE_SHOW_ONLINE_URL':
       {
-        console.log('existing state: ' + JSON.stringify(state));
-        console.log('payload: ' + action.payload);
         return {
           ...state,
           showOnlineUrl: action.payload
