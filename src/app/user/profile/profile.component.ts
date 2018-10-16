@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 import { TOASTR_TOKEN, IToastr } from '../../common/toastr.service';
+import * as fromUser from '../state/user.reducer';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +17,12 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   private firstName: FormControl;
   private lastName: FormControl;
+  username: string;
 
   constructor(private authService: AuthService,
     private router: Router,
-    @Inject(TOASTR_TOKEN) private toastr: IToastr) { }
+    @Inject(TOASTR_TOKEN) private toastr: IToastr,
+    private store: Store<fromUser.State>) { }
 
   ngOnInit() {
     this.firstName = new FormControl
@@ -29,6 +33,10 @@ export class ProfileComponent implements OnInit {
     this.profileForm = new FormGroup({
       firstName: this.firstName,
       lastName: this.lastName
+    });
+
+    this.store.pipe<fromUser.UserState>(select('user')).subscribe(user => {
+      this.username = user.username;
     });
   }
 
@@ -42,6 +50,13 @@ export class ProfileComponent implements OnInit {
        .subscribe(() => {
         this.toastr.success('Profile saved');
        });
+
+      const payload: string = formValues.firstName + formValues.lastName;
+
+      this.store.dispatch({
+        type: 'UPDATE_USERNAME',
+        payload: payload
+      });
     }
   }
 
@@ -50,6 +65,11 @@ export class ProfileComponent implements OnInit {
     .subscribe(() => {
       this.router.navigate(['/user/login']);
      });
+
+     this.store.dispatch({
+      type: 'UPDATE_USERNAME',
+      payload: undefined
+    });
   }
 
   validateFirstName(): boolean {

@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { EventService } from '../../shared/event.service';
 import { Event } from '../models/event';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { AppState } from '../../state/app.reducer';
+import { State } from 'src/app/state/app.state';
 
 
 @Component({
@@ -19,15 +20,11 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   newEvent: Event;
   isDirt = true;
   constructor(private router: Router, private eventService: EventService,
-    private store: Store<any>) { }
+    private store: Store<State>) { }
 
   ngOnInit() {
-    this.store.pipe(select('app')).subscribe(data => {
-      if (data) {
-        this.showOnlineUrl = data.showOnlineUrl;
-      } else {
-        this.showOnlineUrl = true;
-      }
+    this.store.pipe<AppState>(select('app')).subscribe(data => {
+      this.showOnlineUrl = data.showOnlineUrl;
     });
   }
 

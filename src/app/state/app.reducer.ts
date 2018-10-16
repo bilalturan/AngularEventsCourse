@@ -1,4 +1,12 @@
-export function reducer(state, action) {
+export interface AppState {
+  showOnlineUrl: boolean;
+}
+
+const initialState: AppState = {
+  showOnlineUrl: true
+};
+
+export function reducer(state: AppState = initialState, action): AppState {
 
   switch (action.type) {
 
