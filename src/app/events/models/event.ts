@@ -1,4 +1,4 @@
-export class Event {
+export interface Event {
   id: number;
   name: string;
   date: Date;
@@ -10,14 +10,14 @@ export class Event {
   sessions: Session[];
 }
 
-export class Location {
+export interface Location {
   address: string;
   city: string;
   country: string;
 }
 
 
-export class Session {
+export interface Session {
  id: number;
  name: string;
  presenter: string;
