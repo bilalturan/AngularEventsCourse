@@ -6,6 +6,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../state/app.reducer';
 import { State } from '../../state/app.state';
 import * as appActions from '../../state/app.actions';
+import { takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -14,7 +15,7 @@ import * as appActions from '../../state/app.actions';
 })
 export class CreateEventComponent implements OnInit, OnDestroy {
 
-  // private storeSubscription;
+  private componentActive = true;
 
   showOnlineUrl: boolean;
 
@@ -24,15 +25,17 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     private store: Store<State>) { }
 
   ngOnInit() {
-    this.store.pipe(select(fromRoot.getShowOnlineUrl))
+    this.store.pipe(
+      select(fromRoot.getShowOnlineUrl),
+      takeWhile(() => this.componentActive)
+    )
     .subscribe(showOnlineUrl => {
       this.showOnlineUrl = showOnlineUrl;
     });
   }
 
   ngOnDestroy(): void {
-    // TODO: Unsubscribe
-    // this.storeSubscription.unsubscribe();
+    this.componentActive = false;
   }
 
   saveEvent(formValue) {
