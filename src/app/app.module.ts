@@ -32,6 +32,8 @@ import { UpvoteComponent } from './events/event-details/upvote/upvote.component'
 import { LocationValidatorDirective } from './events/location-validator.directive';
 import { reducer } from './state/app.reducer';
 import { environment } from 'src/environments/environment.prod';
+import { EffectsModule } from '@ngrx/effects';
+import { EventsEffect } from './state/app.effects';
 
 const toastr: IToastr = window['toastr']; // to satisfy typescript compiler
 const jQuery = window['$'];
@@ -70,7 +72,8 @@ const jQuery = window['$'];
       name: 'APM Demo',
       maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    EffectsModule.forRoot([EventsEffect])
   ],
   // Services are added as providers
   providers: [

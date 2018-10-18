@@ -1,7 +1,7 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {Event, Location, Session} from '../events/models/event';
+import {Event, Session} from '../events/models/event';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -11,8 +11,6 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class EventService {
-
-  private events: Event[] = [];
 
   constructor(private http: HttpClient) {}
 

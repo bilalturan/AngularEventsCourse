@@ -21,8 +21,8 @@ export const appRoutes: Routes = [
   },
   {
     path: 'events',
-    component: EventsListComponent,
-    resolve: {'events': EventsListResolverService }
+    component: EventsListComponent
+   // resolve: {'events': EventsListResolverService }
   },
   {
     path: 'events/:id',

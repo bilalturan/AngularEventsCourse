@@ -1,8 +1,11 @@
 import { Action } from '@ngrx/store';
+import {Event} from '../events/models/event';
 
 export enum AppActionTypes {
   ToggleShowOnlineUrl = '[App] Toggle show online url',
-  SomeOtherAction = '[App] Some other action'
+  Load = '[App] Load',
+  LoadSuccess = '[App] Load Succees',
+  LoadFail = '[App] Load Fail'
 }
 
 export class ToggleShowOnlineUrl implements Action {
@@ -11,8 +14,23 @@ export class ToggleShowOnlineUrl implements Action {
   constructor(public payload: boolean) {}
 }
 
-export class SomeOtherAction implements Action {
-  readonly type = AppActionTypes.SomeOtherAction;
+export class Load implements Action {
+  readonly type = AppActionTypes.Load;
 }
 
-export type AppActions = ToggleShowOnlineUrl | SomeOtherAction;
+export class LoadSuccess implements Action {
+  readonly type = AppActionTypes.LoadSuccess;
+
+  constructor(public payload: Event[]) {}
+}
+
+export class LoadFail implements Action {
+  readonly type = AppActionTypes.LoadFail;
+
+  constructor(public payload: string[]) {}
+}
+
+export type AppActions = ToggleShowOnlineUrl
+| Load
+| LoadSuccess
+| LoadFail;
