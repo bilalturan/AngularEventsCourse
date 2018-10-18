@@ -27,7 +27,7 @@ export class LoadSuccess implements Action {
 export class LoadFail implements Action {
   readonly type = AppActionTypes.LoadFail;
 
-  constructor(public payload: string[]) {}
+  constructor(public payload: string) {}
 }
 
 export type AppActions = ToggleShowOnlineUrl

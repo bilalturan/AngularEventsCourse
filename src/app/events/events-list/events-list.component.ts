@@ -16,10 +16,14 @@ export class EventsListComponent implements OnInit, OnDestroy {
   // componentActive = true;
 
   myEvents$: Observable<Event[]>;
+  errorMsg$: Observable<string>;
+
   constructor(// private eventService: EventService,
     private route: ActivatedRoute, private store: Store<State>) {}
 
   ngOnInit() {
+
+    this.errorMsg$ = this.store.pipe(select(fromRoot.getError));
 
     this.store.dispatch(new appActions.Load());
 

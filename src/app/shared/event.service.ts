@@ -15,8 +15,8 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('/api/events')
-      .pipe(catchError(this.handleError<Event[]>('getEvents', [])));
+    return this.http.get<Event[]>('/api/events');
+    // .pipe(catchError(this.handleError<Event[]>('getEvents', [])));
   }
 
   getEvent(id: number): Observable<Event> {

@@ -7,5 +7,8 @@
       [event]="event"></app-event-thumbnail>
     </div>
   </div>
+  <div  *ngIf="errorMsg$ | async as error" class="alert alert-danger">
+    Error: {{error}}
+  </div>
 
 </div>
