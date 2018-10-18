@@ -4,7 +4,8 @@ import { EventService } from '../../shared/event.service';
 import { Event } from '../models/event';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../state/app.reducer';
-import { State } from 'src/app/state/app.state';
+import { State } from '../../state/app.state';
+import * as appActions from '../../state/app.actions';
 
 
 @Component({
@@ -45,11 +46,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.router.navigate(['/events']);
   }
 
-  toggleShowOnlineUrl(value) {
-    const action = {
-      type: 'TOGGLE_SHOW_ONLINE_URL',
-      payload: !value
-    };
-    this.store.dispatch(action);
+  toggleShowOnlineUrl(value: boolean) {
+    const payload: boolean = !value;
+    this.store.dispatch(new appActions.ToggleShowOnlineUrl(payload));
   }
 }

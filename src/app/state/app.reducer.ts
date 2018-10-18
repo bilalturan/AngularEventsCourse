@@ -1,4 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AppActions, AppActionTypes } from './app.actions';
+
 
 export interface AppState {
   showOnlineUrl: boolean;
@@ -14,11 +16,11 @@ export const getShowOnlineUrl = createSelector(
   state => state.showOnlineUrl
 );
 
-export function reducer(state: AppState = initialState, action): AppState {
+export function reducer(state: AppState = initialState, action: AppActions): AppState {
 
   switch (action.type) {
 
-      case 'TOGGLE_SHOW_ONLINE_URL':
+      case AppActionTypes.ToggleShowOnlineUrl:
       {
         return {
           ...state,
