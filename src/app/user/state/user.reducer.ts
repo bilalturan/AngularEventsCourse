@@ -1,5 +1,6 @@
 import * as fromRoot from '../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UserActions, UserActionTypes } from './user.actions';
 
 export interface UserState {
   username: string;
@@ -19,18 +20,23 @@ export const getUsername = createSelector(
   state => state.username
 );
 
-export function userReducer(state: UserState = initialState, action): UserState {
+export function userReducer(state: UserState = initialState, action: UserActions): UserState {
 
   switch (action.type) {
 
-      case 'UPDATE_USERNAME':
+      case UserActionTypes.UpdateUsernameAction:
       {
         return {
           ...state,
           username: action.payload
         };
       }
-
+      case UserActionTypes.SomeOtherUserAction:
+      {
+        return {
+          ...state
+        };
+      }
       default: {
         return state;
       }

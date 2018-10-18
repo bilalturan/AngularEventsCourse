@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { TOASTR_TOKEN, IToastr } from '../../common/toastr.service';
 import * as fromUser from '../state/user.reducer';
 import { select, Store } from '@ngrx/store';
+import * as userActions from '../state/user.actions';
 
 @Component({
   selector: 'app-profile',
@@ -49,15 +50,12 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid) {
        this.authService.updateCurrentUser(formValues.firstName, formValues.lastName)
        .subscribe(() => {
-        this.toastr.success('Profile saved');
+
+          this.toastr.success('Profile saved');
+
+          const payload: string = formValues.firstName + formValues.lastName;
+          this.store.dispatch(new userActions.UpdateUsername(payload));
        });
-
-      const payload: string = formValues.firstName + formValues.lastName;
-
-      this.store.dispatch({
-        type: 'UPDATE_USERNAME',
-        payload: payload
-      });
     }
   }
 

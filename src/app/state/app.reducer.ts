@@ -27,7 +27,12 @@ export function reducer(state: AppState = initialState, action: AppActions): App
           showOnlineUrl: action.payload
         };
       }
-
+      case AppActionTypes.SomeOtherAction:
+      {
+        return {
+          ...state
+        };
+      }
       default: {
         return state;
       }
