@@ -3,7 +3,7 @@ import { EventService } from '../shared/event.service';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as appActions from '../state/app.actions';
 import {Event} from '../events/models/event';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -16,7 +16,9 @@ export class EventsEffect {
 
   @Effect()
   loadEvents$ = this.actions$.pipe(
+    tap(action => console.log('Action type: ' + action.type)),
     ofType(appActions.AppActionTypes.Load),
+    tap(a => console.log('Handles Action type: ' + a.type)),
     mergeMap((action: appActions.Load) => this.eventService.getEvents().pipe(
         map((events: Event[]) => (new appActions.LoadSuccess(events))),
         catchError((err: HttpErrorResponse) => {
