@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventService } from '../shared/event.service';
+import { EventService, Error } from '../shared/event.service';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as appActions from '../state/app.actions';
 import {Event} from '../events/models/event';
@@ -22,8 +22,8 @@ export class EventsEffect {
     tap(a => console.log('Handles Action type: ' + a.type)),
     mergeMap((action: appActions.Load) => this.eventService.getEvents().pipe(
         map((events: Event[]) => (new appActions.LoadSuccess(events))),
-        catchError((err: HttpErrorResponse) => {
-          return of(new appActions.LoadFail(err.message));
+        catchError((err: Error) => {
+          return of(new appActions.LoadFail(err.msg));
         })
       ))
   );

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import {Event, Session} from '../events/models/event';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
 
@@ -24,18 +24,15 @@ export class EventService {
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('/api/events')
+  getEvents(): Observable<Event[] | Error> {
+    return this.http.get<Event[]>('/api/eventss')
+    // Error handled by effect
     .pipe(
-
-      map((data: Event[]) => {
-        return data.map(event => <Event>{
-          ...event
-        });
-      }),
-      tap((data: Event[]) => console.log('Tapped events: ' + data.map(x => x.name).join('-')))
+      catchError((err: HttpErrorResponse): Observable<Error> => {
+        const dataError: Error = { msg: 'Error occured inside service'};
+        return throwError(dataError);
+      })
     );
-    // .pipe(catchError(this.handleError<Event[]>('getEvents', [])));
   }
 
   getEvent(id: number): Observable<Event> {
@@ -65,4 +62,8 @@ export class EventService {
       return of(result as T);
     };
   }
+}
+
+export class Error {
+  msg: string;
 }
