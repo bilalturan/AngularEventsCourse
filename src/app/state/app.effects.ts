@@ -4,8 +4,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as appActions from '../state/app.actions';
 import {Event} from '../events/models/event';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class EventsEffect {
@@ -15,7 +16,7 @@ export class EventsEffect {
   }
 
   @Effect()
-  loadEvents$ = this.actions$.pipe(
+  loadEvents$: Observable<Action> = this.actions$.pipe(
     tap(action => console.log('Action type: ' + action.type)),
     ofType(appActions.AppActionTypes.Load),
     tap(a => console.log('Handles Action type: ' + a.type)),

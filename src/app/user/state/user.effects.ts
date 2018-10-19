@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as userActions from './user.actions';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { Action } from '@ngrx/store';
+import { User } from '../user.model';
 
 @Injectable()
 export class UserEffect {
@@ -14,10 +16,11 @@ export class UserEffect {
   }
 
   @Effect()
-  loadProfiles$ = this.actions$.pipe(
+  loadProfiles$: Observable<Action> = this.actions$.pipe(
     ofType(userActions.UserActionTypes.UpdateUsernameAction),
-    mergeMap((action: userActions.UpdateUsername) => this.authService.updateCurrentUser(action.payload).pipe(
-        map(() => (new userActions.UpdateUsernameSuccess(action.payload))),
+    map((action: userActions.UpdateUsername) => action.payload),
+    mergeMap((user: User) => this.authService.updateCurrentUser(user).pipe(
+        map(() => (new userActions.UpdateUsernameSuccess(user))),
         catchError((err: HttpErrorResponse) => {
           return of(new userActions.UpdateUsernameFail(err.message));
         })

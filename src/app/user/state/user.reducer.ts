@@ -46,7 +46,6 @@ export function userReducer(state: UserState = initialState, action: UserActions
       {
         return {
           ...state,
-          user: null,
           error: action.payload
         };
       }

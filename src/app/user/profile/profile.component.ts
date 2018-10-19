@@ -61,16 +61,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   saveProfile(formValues): void {
 
     if (this.profileForm.valid) {
-
-      const payload = new User();
-      payload.firstName = formValues.firstName;
-      payload.lastName = formValues.lastName;
-
-      console.log('update user dispatched');
-
-      this.store.dispatch(new userActions.UpdateUsername(payload));
+      this.store.dispatch(new userActions.UpdateUsername(formValues));
       this.toastr.success('Profile updated');
-      }
+    }
   }
 
   logout() {
