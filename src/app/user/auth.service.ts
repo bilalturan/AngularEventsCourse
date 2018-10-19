@@ -43,8 +43,7 @@ export class AuthService {
 
 
   updateCurrentUser(user: User): Observable<User> {
-    this.currentUser.firstName = user.firstName;
-    this.currentUser.lastName = user.lastName;
+    this.currentUser = user;
     return this.http.put<User>('/api/users/' + this.currentUser.id, this.currentUser);
   }
 

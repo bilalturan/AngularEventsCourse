@@ -72,10 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.router.navigate(['/user/login']);
      });
 
-     this.store.dispatch({
-      type: 'UPDATE_USERNAME',
-      payload: undefined
-    });
+     this.store.dispatch(new userActions.UpdateUsername(<User>{}));
   }
 
   validateFirstName(): boolean {
