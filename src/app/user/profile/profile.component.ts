@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,13 +7,17 @@ import { TOASTR_TOKEN, IToastr } from '../../common/toastr.service';
 import * as fromUser from '../state/user.reducer';
 import { select, Store } from '@ngrx/store';
 import * as userActions from '../state/user.actions';
+import { User } from '../user.model';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+
+  private componentActive = true;
 
   profileForm: FormGroup;
   private firstName: FormControl;
@@ -36,10 +40,18 @@ export class ProfileComponent implements OnInit {
       lastName: this.lastName
     });
 
-    this.store.pipe(select(fromUser.getUsername))
-    .subscribe(username => {
-      this.username = username;
+    this.store.pipe(
+      select(fromUser.getUsername),
+      takeWhile(() => this.componentActive)
+    )
+    .subscribe(user => {
+      console.log('User subscription called');
+      this.username = user.firstName + ' ' + user.lastName;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.componentActive = false;
   }
 
   cancel() {
@@ -47,16 +59,18 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile(formValues): void {
+
     if (this.profileForm.valid) {
-       this.authService.updateCurrentUser(formValues.firstName, formValues.lastName)
-       .subscribe(() => {
 
-          this.toastr.success('Profile saved');
+      const payload = new User();
+      payload.firstName = formValues.firstName;
+      payload.lastName = formValues.lastName;
 
-          const payload: string = formValues.firstName + formValues.lastName;
-          this.store.dispatch(new userActions.UpdateUsername(payload));
-       });
-    }
+      console.log('update user dispatched');
+
+      this.store.dispatch(new userActions.UpdateUsername(payload));
+      this.toastr.success('Profile updated');
+      }
   }
 
   logout() {

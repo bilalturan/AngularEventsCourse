@@ -1,9 +1,11 @@
 import * as fromRoot from '../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserActions, UserActionTypes } from './user.actions';
+import { User } from '../user.model';
 
 export interface UserState {
-  username: string;
+  user: User;
+  error: string;
 }
 
 export interface State extends fromRoot.State {
@@ -11,13 +13,14 @@ export interface State extends fromRoot.State {
 }
 
 const initialState: UserState = {
-  username: null
+  user: new User(),
+  error: ''
 };
 
 const getUserFeatureState = createFeatureSelector<UserState>('user');
 export const getUsername = createSelector(
   getUserFeatureState,
-  state => state.username
+  state => state.user
 );
 
 export function userReducer(state: UserState = initialState, action: UserActions): UserState {
@@ -28,13 +31,23 @@ export function userReducer(state: UserState = initialState, action: UserActions
       {
         return {
           ...state,
-          username: action.payload
+          user: action.payload
         };
       }
-      case UserActionTypes.SomeOtherUserAction:
+      case UserActionTypes.UpdateUsernameSuccess:
       {
         return {
-          ...state
+          ...state,
+          user: action.payload,
+          error: ''
+        };
+      }
+      case UserActionTypes.UpdateUsernameFail:
+      {
+        return {
+          ...state,
+          user: null,
+          error: action.payload
         };
       }
       default: {

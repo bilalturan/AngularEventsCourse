@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './state/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { UserEffect } from './state/user.effects';
 
 
 const userRoutes = [
@@ -21,7 +22,7 @@ const userRoutes = [
     ReactiveFormsModule,
     RouterModule.forChild(userRoutes), // In main module .forRoot was used...
     StoreModule.forFeature('user', userReducer),
-    EffectsModule.forFeature([])
+    EffectsModule.forFeature([UserEffect])
   ],
   declarations: [ProfileComponent, LoginComponent]
 })

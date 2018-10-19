@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './user.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
@@ -42,10 +42,9 @@ export class AuthService {
   }
 
 
-  updateCurrentUser(firstName: string, lastName: string): Observable<User> {
-    this.currentUser.firstName = firstName;
-    this.currentUser.lastName = lastName;
-
+  updateCurrentUser(user: User): Observable<User> {
+    this.currentUser.firstName = user.firstName;
+    this.currentUser.lastName = user.lastName;
     return this.http.put<User>('/api/users/' + this.currentUser.id, this.currentUser);
   }
 
