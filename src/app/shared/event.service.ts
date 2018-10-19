@@ -3,8 +3,18 @@ import { HttpClient } from '@angular/common/http';
 
 import {Event, Session} from '../events/models/event';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 
+
+// ********** RxJs operators **********************
+// An operator operate on obeservable and return an observable. Can be chained.
+// Can be used to transform data
+
+// pipe
+
+// tap : does snot transform data but give you a way to do some code before returning the result
+// map : transforms data to be received
+// catchError
 
 
 @Injectable({
@@ -15,7 +25,16 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>('/api/events');
+    return this.http.get<Event[]>('/api/events')
+    .pipe(
+
+      map((data: Event[]) => {
+        return data.map(event => <Event>{
+          ...event
+        });
+      }),
+      tap((data: Event[]) => console.log('Tapped events: ' + data.map(x => x.name).join('-')))
+    );
     // .pipe(catchError(this.handleError<Event[]>('getEvents', [])));
   }
 
