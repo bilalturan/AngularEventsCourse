@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -34,6 +34,8 @@ import { reducer } from './state/app.reducer';
 import { environment } from 'src/environments/environment.prod';
 import { EffectsModule } from '@ngrx/effects';
 import { EventsEffect } from './state/app.effects';
+import { RequestInterceptor } from './shared/request.interceptor';
+import { ResponseInterceptor } from './shared/response.interceptor';
 
 const toastr: IToastr = window['toastr']; // to satisfy typescript compiler
 const jQuery = window['$'];
@@ -84,6 +86,18 @@ const jQuery = window['$'];
     {
       provide: JQ_TOKEN, // using injection token for global objects
       useValue: jQuery
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      // True for interceptors. Configures the Provide token as
+      // an array of values to be injected by the dependency injection system
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
