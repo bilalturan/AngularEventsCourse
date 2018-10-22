@@ -30,12 +30,22 @@ export class EventsEffect {
 }
 
 
+
+// RxJs operators Categories:
+// - Transformation (return different observable than source)
+// - Filering (return subset of source)
+// - Combination (combine two or more observables)
+// - Utiliy (control how or when values are produced)
+// - Conditional (if supplied condition is met)
+// - Aggregate (look at all values that would be produced an dproduce a single aggregate value, like min, max, count)
+// - Multicasting (unique to subjects)
+
 // RxJs operators:
-    // switchMap: Cancels current subscription/request and can cause race conditions.
-    //            Used for get requests or cancelable requests like searched
-    // concatMap: Runs subscriptions/ request in order and i less performant.
-    //            Used for get, post and put when order is important.
-    // mergeMap:  Runs subscriptions/requests in parallel. Performant.
-    //            Used for put, post and delete when order is NOT important.
-    // exhaustMap:Ignores all subsequest subscriptions/requests until it completes.
-    //            Used for login when you do not want more requests until the initial one is complete.}
+// switchMap: Cancels current subscription/request and can cause race conditions.
+//            Used for get requests or cancelable requests like searched
+// concatMap: Runs subscriptions/ request in order and i less performant.
+//            Used for get, post and put when order is important.
+// mergeMap:  Runs subscriptions/requests in parallel. Performant.
+//            Used for put, post and delete when order is NOT important.
+// exhaustMap:Ignores all subsequest subscriptions/requests until it completes.
+//            Used for login when you do not want more requests until the initial one is complete.}
