@@ -14,8 +14,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.scss']
 })
-export class CreateEventComponent implements OnInit, OnDestroy, OnChanges {
-  
+export class CreateEventComponent implements OnInit, OnDestroy {
 
   eventForm: FormGroup;
 
