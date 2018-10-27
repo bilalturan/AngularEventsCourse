@@ -78,17 +78,20 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.store.dispatch(new appActions.ToggleShowOnlineUrl(payload));
   }
 
-  setNotification(notifyVia: string): void {
-    const priceControl = this.eventForm.controls.price;
-    const timeControl = this.eventForm.controls.time;
-    if (notifyVia === 'price') {
-      timeControl.clearValidators();
-      priceControl.setValidators(Validators.required);
-    } else if (notifyVia === 'time') {
-      priceControl.clearAsyncValidators();
-      timeControl.setValidators(Validators.required);
-    }
-  }
+  // Dynamically changing validation rules
+  // setNotification(notifyVia: string): void {
+  //   const priceControl = this.eventForm.controls.price;
+  //   const timeControl = this.eventForm.controls.time;
+  //   if (notifyVia === 'price') {
+  //     priceControl.clearValidators();
+  //     timeControl.setValidators(Validators.required);
+  //   } else if (notifyVia === 'time') {
+  //     timeControl.clearValidators();
+  //     priceControl.setValidators(Validators.required);
+  //   }
+  //   priceControl.updateValueAndValidity();
+  //   timeControl.updateValueAndValidity();
+  // }
 
   populateTestData(): void {
     this.eventForm.patchValue({
