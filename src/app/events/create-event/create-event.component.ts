@@ -7,8 +7,16 @@ import * as fromRoot from '../../state/app.reducer';
 import { State } from '../../state/app.state';
 import * as appActions from '../../state/app.actions';
 import { takeWhile } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+
+// Custome validator
+function ratingRange(c: AbstractControl): {[key: string]: boolean}  | null {
+  if (c.value != undefined && (isNaN(c.value) || c.value < 1 || c.value > 5)) {
+    return {'range': true};
+  }
+  return null;
+}
 
 @Component({
   templateUrl: './create-event.component.html',
@@ -46,6 +54,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
          country: '',
       }),
       onlineUrl: ['', Validators.required],
+      rating: ['', ratingRange]
     });
 
     this.store.pipe(
@@ -77,6 +86,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     const payload: boolean = !value;
     this.store.dispatch(new appActions.ToggleShowOnlineUrl(payload));
   }
+
+  // Custom validator
 
   // Dynamically changing validation rules
   // setNotification(notifyVia: string): void {
