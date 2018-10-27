@@ -45,7 +45,7 @@
     <div class="row">
       <input type="button" (click)="addLocation()" value="Add location">
     </div>
-    
+
     <div formArrayName="locations"
           *ngFor="let location of locations.controls; let i=index">
       <div [formGroupName]="i" [ngClass]="{'error': location.invalid && location.touched}">
@@ -53,17 +53,17 @@
             Country and city must be same</em>
         
       <div class="form-group">
-        <label for="address">Event Location:</label>
+        <label attr.for="{{'address' + i}}">Event Location:</label>
          <input formControlName="address" 
-               id="address" type="text" class="form-control" placeholder="Address of event..." />
+               id="{{'address' + i}}" type="text" class="form-control" placeholder="Address of event..." />
       </div>
       <div class="row">
         <div class="col-md-6">
-          <input formControlName="city" id="city" type="text"
+          <input formControlName="city" id="{{'city' + i}}" type="text"
           class="form-control" placeholder="City..." />
         </div>
         <div class="col-md-6" >
-          <input formControlName="country" id="country" type="text"
+          <input formControlName="country" id="{{'country' + i}}" type="text"
           class="form-control" placeholder="Country..." />
         </div>
       </div>
