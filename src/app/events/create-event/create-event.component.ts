@@ -163,7 +163,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   addLocation() {
     console.log('addLocation');
-    this.locations.push(this.buildLocation());
+    const location = this.buildLocation();
+    this.locations.push(location);
   }
 
   // Custom validator
