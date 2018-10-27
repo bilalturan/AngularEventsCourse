@@ -1,12 +1,15 @@
 <h1>New Event</h1>
 <hr>
 <div class="col-md-6">
+  {{eventForm.value | json}}
+</div>
+<div class="col-md-6">
   <form (ngSubmit)="saveEvent()" 
         [formGroup]="eventForm" 
         autocomplete="off" novalidate>
-    <div class="form-group" [ngClass]="{'error': eventForm.controls.name?.invalid && eventForm.controls.name?.touched}">
+    <div class="form-group" [ngClass]="{'error': nameMessage}">
       <label for="eventName">Event Name:</label>
-      <em *ngIf="eventForm.controls.name?.invalid && (eventForm.controls.name?.touched)">Required</em>
+      <em *ngIf="nameMessage">{{nameMessage}}</em>
       <input formControlName="name" 
              id="name" type="text" class="form-control" placeholder="Name of your event..." />
     </div>
@@ -37,12 +40,13 @@
       <img [src]="eventForm.controls.imageUrl.value" *ngIf="eventForm.controls.imageUrl?.valid" />
     </div>
 
-    <!-- <div ngModelGroup="location" #locationGroup="ngModelGroup" validateLocation>
+    <div formGroupName="location" [ngClass]="{'error': eventForm.get('location').invalid && eventForm.get('location').touched}">
+        <em *ngIf="eventForm.get('location').invalid && eventForm.get('location').touched">
+            Country and city must be same</em>
+        
       <div class="form-group">
         <label for="address">Event Location:</label>
-        <em *ngIf="locationGroup?.invalid && locationGroup?.touched">
-          You must en ter the full location oR an online URL</em>
-        <input formControlName="address" 
+         <input formControlName="address" 
                id="address" type="text" class="form-control" placeholder="Address of event..." />
       </div>
       <div class="row">
@@ -55,7 +59,7 @@
           class="form-control" placeholder="Country..." />
         </div>
       </div>
-    </div> -->
+    </div>
 
     
     <div class="form-group" *ngIf="showOnlineUrl">

@@ -6,40 +6,65 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../state/app.reducer';
 import { State } from '../../state/app.state';
 import * as appActions from '../../state/app.actions';
-import { takeWhile } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-
+import { takeWhile, debounceTime } from 'rxjs/operators';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+  ValidatorFn
+} from '@angular/forms';
 
 // Custom validator without params
-function ratingRange(c: AbstractControl): {[key: string]: boolean}  | null {
+function ratingRange(c: AbstractControl): { [key: string]: boolean } | null {
   if (c.value !== undefined && (isNaN(c.value) || c.value < 1 || c.value > 5)) {
-    return {'range': true};
+    return { range: true };
   }
   return null;
 }
 
 // Validator functions with params (factory)
 function ratingRangeWithParams(min: number, max: number): ValidatorFn {
-  return (c: AbstractControl): {[key: string]: boolean}  | null => {
-    if (c.value !== undefined && (isNaN(c.value)
-      || c.value < min
-      || c.value > max)) {
-      return {'range': true};
+  return (c: AbstractControl): { [key: string]: boolean } | null => {
+    if (
+      c.value !== undefined &&
+      (isNaN(c.value) || c.value < min || c.value > max)
+    ) {
+      return { range: true };
     }
     return null;
-  }
+  };
 }
 
+// Validatig cross field (applied to formGroup)
+function cityCountryMatcher(
+  c: AbstractControl
+): { [key: string]: boolean } | null {
+  const city = c.get('city');
+  const country = c.get('country');
 
+  if (city.pristine || country.pristine) {
+    return null;
+  }
+
+  if (city.value !== country.value) {
+    return { match: true };
+  }
+  return null;
+}
 
 @Component({
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.scss']
 })
 export class CreateEventComponent implements OnInit, OnDestroy {
-
   eventForm: FormGroup;
 
+  nameMessage: string;
+  private nameValidationMessages = {
+    required: 'Please enter your name', // get from extrenal source
+    minlength: 'Min 3 characters'
+  };
 
   private componentActive = true;
 
@@ -47,37 +72,64 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   newEvent: Event;
   isDirt = true;
-  constructor(private router: Router, private eventService: EventService,
-    private store: Store<State>, private fb: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private eventService: EventService,
+    private store: Store<State>,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
-
     this.eventForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)] ],
       date: ['', Validators.required],
       time: ['', Validators.required],
       price: ['', Validators.required],
-      imageUrl: ['', [
-        Validators.required,
-        Validators.pattern('.*\/.*.(png|jpg)')
-       ]
+      imageUrl: [
+        '',
+        [Validators.required, Validators.pattern('.*/.*.(png|jpg)')]
       ],
-      location: this.fb.group({
-         address: '',
-         city: '',
-         country: '',
-      }),
+      location: this.fb.group(
+        {
+          address: '',
+          city: ['', Validators.required],
+          country: ['', Validators.required]
+        },
+        { validator: cityCountryMatcher }
+      ),
       onlineUrl: ['', Validators.required],
-      rating: ['',  [Validators.required, ratingRangeWithParams(4, 12)] ]
+      rating: ['', [Validators.required, ratingRangeWithParams(4, 12)]]
     });
 
-    this.store.pipe(
-      select(fromRoot.getShowOnlineUrl),
-      takeWhile(() => this.componentActive)
+    const nameCtrl = this.eventForm.get('name');
+    nameCtrl.valueChanges
+    .pipe(
+      debounceTime(1000)
     )
-    .subscribe(showOnlineUrl => {
-      this.showOnlineUrl = showOnlineUrl;
+    .subscribe(value => {
+      this.setNameMessage(nameCtrl);
     });
+
+    this.store
+      .pipe(
+        select(fromRoot.getShowOnlineUrl),
+        takeWhile(() => this.componentActive)
+      )
+      .subscribe(showOnlineUrl => {
+        this.showOnlineUrl = showOnlineUrl;
+      });
+  }
+
+  setNameMessage(c: AbstractControl): void {
+    this.nameMessage = '';
+    if (c.invalid && c.touched) {
+      this.nameMessage = Object.keys(c.errors)
+        .map(key => {
+          console.log(key);
+          return this.nameValidationMessages[key];
+        })
+        .join(' ');
+    }
   }
 
   ngOnDestroy(): void {
@@ -86,7 +138,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   saveEvent() {
     const formValue = this.eventForm.value;
-    this.eventService.saveEvent(formValue).subscribe( () => {
+    this.eventService.saveEvent(formValue).subscribe(() => {
       this.isDirt = false;
       this.router.navigate(['/events']);
     });
