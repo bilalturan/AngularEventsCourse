@@ -54,7 +54,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
          country: '',
       }),
       onlineUrl: ['', Validators.required],
-      rating: ['', ratingRange]
+      rating: ['',  [Validators.required, ratingRange] ]
     });
 
     this.store.pipe(
