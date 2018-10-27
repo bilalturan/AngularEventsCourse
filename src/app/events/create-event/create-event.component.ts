@@ -12,7 +12,8 @@ import {
   FormBuilder,
   Validators,
   AbstractControl,
-  ValidatorFn
+  ValidatorFn,
+  FormArray
 } from '@angular/forms';
 
 // Custom validator without params
@@ -37,9 +38,7 @@ function ratingRangeWithParams(min: number, max: number): ValidatorFn {
 }
 
 // Validatig cross field (applied to formGroup)
-function cityCountryMatcher(
-  c: AbstractControl
-): { [key: string]: boolean } | null {
+function cityCountryMatcher( c: AbstractControl): { [key: string]: boolean } | null {
   const city = c.get('city');
   const country = c.get('country');
 
@@ -47,7 +46,8 @@ function cityCountryMatcher(
     return null;
   }
 
-  if (city.value !== country.value) {
+  if (city.value != country.value) {
+    console.log('City and country differs');
     return { match: true };
   }
   return null;
@@ -79,6 +79,19 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {}
 
+  buildLocation(): FormGroup {
+    return this.fb.group({
+      address: '',
+      city: ['', Validators.required],
+      country: ['', Validators.required]
+    },
+      { validator: cityCountryMatcher }
+    );
+  }
+
+  get locations(): FormArray {
+    return <FormArray>this.eventForm.get('locations');
+  }
   ngOnInit() {
     this.eventForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)] ],
@@ -89,14 +102,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
         '',
         [Validators.required, Validators.pattern('.*/.*.(png|jpg)')]
       ],
-      location: this.fb.group(
-        {
-          address: '',
-          city: ['', Validators.required],
-          country: ['', Validators.required]
-        },
-        { validator: cityCountryMatcher }
-      ),
+      locations: this.fb.array([
+        this.buildLocation()
+      ]),
       onlineUrl: ['', Validators.required],
       rating: ['', [Validators.required, ratingRangeWithParams(4, 12)]]
     });
@@ -151,6 +159,11 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   toggleShowOnlineUrl(value: boolean) {
     const payload: boolean = !value;
     this.store.dispatch(new appActions.ToggleShowOnlineUrl(payload));
+  }
+
+  addLocation() {
+    console.log('addLocation');
+    this.locations.push(this.buildLocation());
   }
 
   // Custom validator

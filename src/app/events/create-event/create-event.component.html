@@ -25,6 +25,8 @@
       <input formControlName="time"
              id="eventTime" type="text" class="form-control" placeholder="start and end time..." />
     </div>
+
+   
     <div class="form-group" [ngClass]="{'error': eventForm.controls.price?.invalid && eventForm.controls.price?.touched}">
       <label for="eventPrice">Event Price:</label>
       <em *ngIf="eventForm.controls.price?.invalid && (eventForm.controls.price?.touched)">Required</em>
@@ -40,8 +42,14 @@
       <img [src]="eventForm.controls.imageUrl.value" *ngIf="eventForm.controls.imageUrl?.valid" />
     </div>
 
-    <div formGroupName="location" [ngClass]="{'error': eventForm.get('location').invalid && eventForm.get('location').touched}">
-        <em *ngIf="eventForm.get('location').invalid && eventForm.get('location').touched">
+    <div class="row">
+      <input type="button" (click)="addLocation()" value="Add location">
+    </div>
+    
+    <div formArrayName="locations"
+          *ngFor="let location of locations.controls; let i=index">
+      <div [formGroupName]="i" [ngClass]="{'error': location.invalid && location.touched}">
+        <em *ngIf="location.invalid && location.touched">
             Country and city must be same</em>
         
       <div class="form-group">
@@ -60,6 +68,8 @@
         </div>
       </div>
     </div>
+    </div>
+   
 
     
     <div class="form-group" *ngIf="showOnlineUrl">
